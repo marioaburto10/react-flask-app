@@ -1,8 +1,8 @@
 # import necessary libraries
-from flask import Flask, render_template
+from flask import Flask, render_template, request, jsonify, Blueprint
 
 # create instance of Flask app
-app = Flask(__name__)
+app = Flask(__name__, template_folder="client/build", static_folder="client/build/static")
 
 # List of dictionaries
 dogs = [{"name": "Fido", "type": "Lab"},
@@ -15,7 +15,7 @@ dogs = [{"name": "Fido", "type": "Lab"},
 @app.route("/")
 def index():
 
-    return render_template("index.html", dogs=dogs)
+    return render_template("index.html")
 
 
 if __name__ == "__main__":
