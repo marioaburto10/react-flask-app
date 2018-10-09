@@ -20,7 +20,8 @@ class Speech extends Component {
   constructor() {
     super()
     this.state = {
-      listening: false
+      listening: false,
+      finalText: ""
     }
 
     this.toggleListen = this.toggleListen.bind(this)
@@ -48,7 +49,7 @@ class Speech extends Component {
       recognition.stop()
       recognition.onend = () => {
         console.log("Stopped listening per click")
-        helpers.sendTextToWit("Sample end text");
+        helpers.sendTextToWit(this.state.finalText);
       }
     }
 
@@ -65,6 +66,11 @@ class Speech extends Component {
         if (event.results[i].isFinal) finalTranscript += transcript + ' ';
         else interimTranscript += transcript;
       }
+
+      this.setState({
+        finalText: finalTranscript
+      });
+
       document.getElementById('interim').innerHTML = interimTranscript
       document.getElementById('final').innerHTML = finalTranscript
       // console.log("final: " , finalTranscript);
@@ -72,18 +78,18 @@ class Speech extends Component {
 
     //-------------------------COMMANDS------------------------------------
 
-      const transcriptArr = finalTranscript.split(' ')
-      const stopCmd = transcriptArr.slice(-3, -1)
-      console.log('stopCmd', stopCmd)
+      // const transcriptArr = finalTranscript.split(' ')
+      // const stopCmd = transcriptArr.slice(-3, -1)
+      // console.log('stopCmd', stopCmd)
 
-      if (stopCmd[0] === 'stop' && stopCmd[1] === 'listening'){
-        recognition.stop()
-        recognition.onend = () => {
-          console.log('Stopped listening per command')
-          const finalText = transcriptArr.slice(0, -3).join(' ')
-          document.getElementById('final').innerHTML = finalText
-        }
-      }
+      // if (stopCmd[0] === 'stop' && stopCmd[1] === 'listening'){
+      //   recognition.stop()
+      //   recognition.onend = () => {
+      //     console.log('Stopped listening per command')
+      //     const finalText = transcriptArr.slice(0, -3).join(' ')
+      //     document.getElementById('final').innerHTML = finalText
+      //   }
+      // }
     }
     
   //-----------------------------------------------------------------------
