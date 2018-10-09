@@ -1,5 +1,7 @@
 'use strict'
 import React, { Component } from "react"
+import helpers from "./utils/helpers";
+
 
 //------------------------SPEECH RECOGNITION-----------------------------
 
@@ -20,6 +22,7 @@ class Speech extends Component {
     this.state = {
       listening: false
     }
+
     this.toggleListen = this.toggleListen.bind(this)
     this.handleListen = this.handleListen.bind(this)
   }
@@ -32,7 +35,7 @@ class Speech extends Component {
 
   handleListen() {
 
-    console.log('listening?', this.state.listening)
+    console.log('listening? ', this.state.listening)
 
     if (this.state.listening) {
       recognition.start()
@@ -45,6 +48,7 @@ class Speech extends Component {
       recognition.stop()
       recognition.onend = () => {
         console.log("Stopped listening per click")
+        helpers.sendTextToWit("Sample end text");
       }
     }
 
@@ -63,6 +67,8 @@ class Speech extends Component {
       }
       document.getElementById('interim').innerHTML = interimTranscript
       document.getElementById('final').innerHTML = finalTranscript
+      // console.log("final: " , finalTranscript);
+      
 
     //-------------------------COMMANDS------------------------------------
 
