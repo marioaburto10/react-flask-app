@@ -22,3 +22,5 @@ client/yarn-error.log*
 
 .idea
 __pycache__
+
+config.py

@@ -103,7 +103,7 @@ class Speech extends Component {
   render() {
     return (
       <div style={container}>
-        <button id='microphone-btn' style={button} onClick={this.toggleListen} />
+        <button id='microphone-btn' style={button} onClick={this.toggleListen}><h2>Mic</h2></button>
         <div id='interim' style={interim}></div>
         <div id='final' style={final}></div>
       </div>
