@@ -1,4 +1,3 @@
-'use strict'
 import React, { Component } from "react"
 import helpers from "./utils/helpers";
 
@@ -11,6 +10,8 @@ const recognition = new SpeechRecognition()
 recognition.continous = true
 recognition.interimResults = true
 recognition.lang = 'en-US'
+
+let voices = window.speechSynthesis.getVoices();
 
 
 //------------------------COMPONENT-----------------------------
@@ -49,7 +50,23 @@ class Speech extends Component {
       recognition.stop()
       recognition.onend = () => {
         console.log("Stopped listening per click")
-        helpers.sendTextToWit(this.state.finalText);
+
+        helpers.sendTextToWit(this.state.finalText).then((data) => {
+
+          console.log(data.data);
+          document.getElementById('output').innerHTML = `<h1>${data.data}</h1>`;
+          // this code speaks the output from the browser
+          // window.speechSynthesis.speak(
+          //   new SpeechSynthesisUtterance(data.data)
+          // );
+
+          // this code also speaks the output but I can select what voice I want
+          voices = window.speechSynthesis.getVoices();
+          let utterance = new SpeechSynthesisUtterance(data.data);
+          utterance.voice = voices[10];
+          window.speechSynthesis.speak(utterance);          
+
+        });
       }
     }
 
@@ -106,6 +123,7 @@ class Speech extends Component {
         <button id='microphone-btn' style={button} onClick={this.toggleListen}><h2>Mic</h2></button>
         <div id='interim' style={interim}></div>
         <div id='final' style={final}></div>
+        <div id='output' style={output}></div>
       </div>
     )
   }
@@ -143,7 +161,14 @@ const styles = {
     padding: '1em',
     margin: '1em',
     width: '300px'
+  }, 
+  output: {
+    color: 'blue',
+    border: '#ccc 1px solid',
+    padding: '1em',
+    margin: '1em',
+    width: '600px'
   }
 }
 
-const { container, button, interim, final } = styles
+const { container, button, interim, final, output } = styles

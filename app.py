@@ -5,6 +5,7 @@ import requests
 import json
 from wit import Wit
 from config import wit_access_token
+from handleWitResponse import handle_response
 
 
 # create instance of Flask app
@@ -27,12 +28,14 @@ def sendTextToWit():
 	text = data_dict["text"]
 
 	client = Wit(access_token=wit_access_token)
-	respContent = client.message(text)
-	respText = respContent["_text"]
+	resp_content = client.message(text)
 
-	print("CONTENT FROM WIT.AI: ", respText)
+	print("CONTENT FROM WIT.AI: ", resp_content["_text"])
 
-	return jsonify(respText)
+	final_output = handle_response(resp_content)
+
+	return jsonify(final_output)
+
 
 if __name__ == "__main__":
     app.run(debug=True)
