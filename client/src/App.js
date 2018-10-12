@@ -55,15 +55,11 @@ class Speech extends Component {
 
           console.log(data.data);
           document.getElementById('output').innerHTML = `<h1>${data.data}</h1>`;
-          // this code speaks the output from the browser
-          // window.speechSynthesis.speak(
-          //   new SpeechSynthesisUtterance(data.data)
-          // );
-
+        
           // this code also speaks the output but I can select what voice I want
           voices = window.speechSynthesis.getVoices();
           let utterance = new SpeechSynthesisUtterance(data.data);
-          utterance.voice = voices[10];
+          utterance.voice = voices[7];
           window.speechSynthesis.speak(utterance);          
 
         });

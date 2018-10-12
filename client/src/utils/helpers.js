@@ -5,20 +5,14 @@ import axios from "axios";
 const helpers = {
 	sendTextToWit: (text) => {
 		console.log("text in axios: ", {text});
-		return axios({
-		  method: 'post',
-		  url: '/api/text',
-		  data: {
-		    text
-		  }
-		})
-		  .then(function (response) {
-		    console.log(response);
-		    return response
-		  })
-		  .catch(function (error) {
-		    console.log(error);
-		  });
+		return axios.post('/api/text', {text})
+			  .then(function (response) {
+			    console.log(response);
+			    return response
+			  })
+			  .catch(function (error) {
+			    console.log(error);
+			  });
 	}
 	// getLongAndLat: (zipCode) => {
 	// 	console.log(zipCode);

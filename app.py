@@ -22,9 +22,9 @@ def index():
 def consult_with_wit():
 
 	# receiving data from axios and getting the text value from it
-	data = request.data.decode("utf-8") 
-	data_dict = ast.literal_eval(data)
-	text = data_dict["text"]
+	data = request.get_json()
+	text = data["text"]
+	print(text)
 
 	# sending the text to wit.ai and receiving a response
 	client = Wit(access_token=wit_access_token)
@@ -32,7 +32,7 @@ def consult_with_wit():
 
 	print("RESPONSE CONTENT FROM WIT.AI: ", resp_content)
 
-	# based on the response from wit
+	# based on the response from wit,
 	# we will perform an action (hit an API perhaps) and return back results as a string
 	final_output = handle_response(resp_content)
 
