@@ -13,7 +13,7 @@ requests==2.19.1
 six==1.11.0
 sounddevice==0.3.12
 SoundFile==0.10.2
-urllib3==1.23
+urllib3==1.26.5
 wcwidth==0.1.7
 Werkzeug==0.14.1
 wit==5.1.0
